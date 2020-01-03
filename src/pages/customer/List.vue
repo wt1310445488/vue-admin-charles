@@ -120,7 +120,7 @@ export default {
                 //2.提示结果
                 this.$message({
                 type: 'success',
-                message: response.message
+                message: response.message+id
             });  
           })
         })

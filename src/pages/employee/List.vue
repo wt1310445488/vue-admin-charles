@@ -113,7 +113,7 @@ export default {
           data:querystring.stringify(this.form)
         }).then((response)=>{
           this.closeModalHandler();
-          this.loadDate();
+          this.loadData();
           this.$message({          
             type:"success",
             message:response.message
@@ -122,7 +122,7 @@ export default {
       },
       //重载员工数据
     loadData(){
-        let url = "http://localhost:6677/waiter/findAll";
+        let url = "http://localhost:6677/waiter/findAll"
         request.get(url).then((response)=>{
           //箭头函数中的this指向外部函数中的this
           this.employees = response.data;
@@ -145,12 +145,19 @@ export default {
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.$message({
-            type: 'success',
-            message: '删除成功!'+id
-          });
+            //调用后台接口，完成删除操作。
+            let url = "http://localhost:6677/waiter/deleteById?id="+id;
+            request.get(url).then((response)=>{
+                //1.刷新数据
+                this.loadData();
+                //2.提示结果
+                this.$message({
+                type: 'success',
+                message: response.message+id
+            });  
+          })
         })
-       },
+        },
     toUpdateHandler(row){
       //模态框表单中显示出当前行的信息
         this.title="更新员工信息";

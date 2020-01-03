@@ -62,7 +62,7 @@ import querystring from 'querystring'
 export default {
     //用于存放网页中需要调用的方法
     methods:{
-        loadDate(){
+        loadData(){
              let url = "http://localhost:6677/customer/findAll"
         request.get(url).then((response)=>{
             //将查询结果设置到customers中,this指向外部函数的this
@@ -82,7 +82,7 @@ export default {
             }).then((response)=>{
                 //模态框关闭
                 this.closeModalHandler();
-                this.loadDate();
+                this.loadData();
                 this.$message({
                     
                     type:"success",
@@ -92,7 +92,7 @@ export default {
         },
         toAddHandler(){
             this.form = {
-        type:"employee"
+        type:"customer"
       }
             this.title="录入员工信息";
             this.visible = true;
@@ -116,7 +116,7 @@ export default {
             let url = "http://localhost:6677/customer/deleteById?id="+id;
             request.get(url).then((response)=>{
                 //1.刷新数据
-                this.loadDate();
+                this.loadData();
                 //2.提示结果
                 this.$message({
                 type: 'success',
@@ -140,7 +140,7 @@ export default {
     },
     created(){
         //vue实例创建完毕需要执行的
-       this.loadDate();
+       this.loadData();
     }
 }
 </script>
